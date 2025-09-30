@@ -1,0 +1,29 @@
+{
+  "name": "skilllink-backend",
+  "version": "1.0.0",
+  "description": "SkillLink backend with Supabase",
+  "main": "index.js",
+  "scripts": {
+    "start": "supabase start",
+    "stop": "supabase stop",
+    "reset": "supabase db reset",
+    "migrate": "supabase db push",
+    "seed": "node scripts/seed.js",
+    "generate-types": "supabase gen types typescript --local > types/database.types.ts",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "keywords": [
+    "supabase",
+    "backend",
+    "database",
+    "skilllink"
+  ],
+  "author": "SkillLink Team",
+  "license": "MIT"
+}

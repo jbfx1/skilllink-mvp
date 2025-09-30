@@ -1,0 +1,45 @@
+{
+  "name": "skilllink",
+  "version": "1.0.0",
+  "description": "A comprehensive learning platform that connects learners with mentors through chat, topic rooms, live classes, and tutorials.",
+  "private": true,
+  "workspaces": [
+    "web",
+    "mobile",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:mobile\"",
+    "dev:web": "cd web && npm run dev",
+    "dev:mobile": "cd mobile && npm start",
+    "build": "npm run build:shared && npm run build:web",
+    "build:shared": "cd shared && npm run build",
+    "build:web": "cd web && npm run build",
+    "db:setup": "cd backend && supabase start && supabase db reset",
+    "db:migrate": "cd backend && supabase db push",
+    "db:seed": "cd backend && npm run seed",
+    "deploy": "npm run deploy:web && npm run deploy:mobile",
+    "deploy:web": "cd web && npm run build && vercel --prod",
+    "deploy:mobile": "cd mobile && eas build --platform all",
+    "test": "npm run test:web && npm run test:mobile",
+    "test:web": "cd web && npm test",
+    "test:mobile": "cd mobile && npm test",
+    "lint": "npm run lint:web && npm run lint:mobile",
+    "lint:web": "cd web && npm run lint",
+    "lint:mobile": "cd mobile && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "learning",
+    "mentorship",
+    "education",
+    "react",
+    "react-native",
+    "supabase",
+    "live-video"
+  ],
+  "author": "SkillLink Team",
+  "license": "MIT"
+}
