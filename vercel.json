@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "framework": "vite",
+  "buildCommand": "cd web && npm install && npm run build",
+  "outputDirectory": "web/dist",
+  "installCommand": "npm install",
+  "devCommand": "cd web && npm run dev",
+  "env": {
+    "VITE_SUPABASE_URL": "@supabase-url",
+    "VITE_SUPABASE_ANON_KEY": "@supabase-anon-key",
+    "VITE_DAILY_API_KEY": "@daily-api-key",
+    "VITE_STRIPE_PUBLISHABLE_KEY": "@stripe-publishable-key",
+    "VITE_POSTHOG_KEY": "@posthog-key",
+    "VITE_POSTHOG_HOST": "https://app.posthog.com",
+    "VITE_SENTRY_DSN": "@sentry-dsn",
+    "VITE_APP_URL": "@app-url"
+  },
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

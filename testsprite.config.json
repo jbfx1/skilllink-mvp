@@ -1,0 +1,122 @@
+{
+  "name": "SkillLink MVP",
+  "version": "1.0.0",
+  "baseUrl": "http://localhost:5173",
+  "testEnvironment": "chromium",
+  "browsers": ["chromium", "firefox", "webkit"],
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "tests": {
+    "authentication": {
+      "enabled": true,
+      "scenarios": [
+        {
+          "name": "User Sign Up",
+          "steps": [
+            { "action": "navigate", "url": "/" },
+            { "action": "click", "selector": "[data-testid='signup-tab']" },
+            { "action": "fill", "selector": "input[name='email']", "value": "test@example.com" },
+            { "action": "fill", "selector": "input[name='password']", "value": "Test123!@#" },
+            { "action": "click", "selector": "button[type='submit']" },
+            { "action": "wait", "selector": "[data-testid='dashboard']", "timeout": 5000 },
+            { "action": "assert", "type": "visible", "selector": "[data-testid='dashboard']" }
+          ]
+        },
+        {
+          "name": "User Sign In",
+          "steps": [
+            { "action": "navigate", "url": "/" },
+            { "action": "fill", "selector": "input[name='email']", "value": "learner@test.com" },
+            { "action": "fill", "selector": "input[name='password']", "value": "Demo1234!" },
+            { "action": "click", "selector": "button[type='submit']" },
+            { "action": "wait", "selector": "[data-testid='dashboard']", "timeout": 5000 }
+          ]
+        }
+      ]
+    },
+    "mentorDiscovery": {
+      "enabled": true,
+      "scenarios": [
+        {
+          "name": "Search for Mentors",
+          "steps": [
+            { "action": "navigate", "url": "/discovery" },
+            { "action": "fill", "selector": "input[name='search']", "value": "JavaScript" },
+            { "action": "click", "selector": "button[aria-label='Search']" },
+            { "action": "wait", "selector": "[data-testid='mentor-list']", "timeout": 3000 },
+            { "action": "assert", "type": "visible", "selector": "[data-testid='mentor-card']" }
+          ]
+        }
+      ]
+    },
+    "messaging": {
+      "enabled": true,
+      "scenarios": [
+        {
+          "name": "Send Message",
+          "steps": [
+            { "action": "navigate", "url": "/chat" },
+            { "action": "click", "selector": "[data-testid='conversation-1']" },
+            { "action": "fill", "selector": "textarea[name='message']", "value": "Hello, this is a test message" },
+            { "action": "click", "selector": "button[aria-label='Send']" },
+            { "action": "wait", "selector": "[data-testid='message-sent']", "timeout": 2000 }
+          ]
+        }
+      ]
+    },
+    "liveClasses": {
+      "enabled": true,
+      "scenarios": [
+        {
+          "name": "Join Live Class",
+          "steps": [
+            { "action": "navigate", "url": "/classes" },
+            { "action": "click", "selector": "[data-testid='class-join-btn']" },
+            { "action": "wait", "selector": "[data-testid='video-room']", "timeout": 5000 },
+            { "action": "assert", "type": "visible", "selector": "[data-testid='video-controls']" }
+          ]
+        }
+      ]
+    },
+    "fileUpload": {
+      "enabled": true,
+      "scenarios": [
+        {
+          "name": "Upload Avatar",
+          "steps": [
+            { "action": "navigate", "url": "/profile/settings" },
+            { "action": "upload", "selector": "input[type='file']", "file": "./test-assets/avatar.jpg" },
+            { "action": "wait", "selector": "[data-testid='upload-success']", "timeout": 5000 }
+          ]
+        }
+      ]
+    }
+  },
+  "screenshots": {
+    "enabled": true,
+    "onFailure": true,
+    "path": "./test-results/screenshots"
+  },
+  "video": {
+    "enabled": false,
+    "onFailure": true
+  },
+  "reports": {
+    "formats": ["html", "json"],
+    "path": "./test-results/reports"
+  },
+  "retry": {
+    "maxRetries": 2,
+    "retryOnFailure": true
+  },
+  "timeout": {
+    "global": 30000,
+    "test": 10000
+  },
+  "parallel": {
+    "enabled": true,
+    "workers": 4
+  }
+}
