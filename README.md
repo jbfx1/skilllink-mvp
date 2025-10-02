@@ -1,94 +1,138 @@
-# SkillLink - Learning Platform MVP
+# SkillLink — Mentor & Learner Platform (MVP)
 
-A comprehensive learning platform that connects learners with mentors through chat, topic rooms, live classes, and tutorials.
+SkillLink connects non-skilled learners with skilled mentors across any field. Core MVP features include discovery & matching, realtime rooms/chat, Q&A, live classes, and VOD tutorials—plus basic monetization and trust & safety.
 
-## Architecture Overview
+## Tech Stack
+- **Web:** React 18, TypeScript, Vite or Next.js (UI: Tailwind CSS + shadcn/ui)
+- **Backend:** Supabase (Postgres database, Auth, Row-Level Security, Realtime subscriptions, Storage)
+- **Live:** Daily.co (live video calls, tokens, recordings)
+- **VOD:** Mux (video upload/ingest and playback)
+- **Payments:** Stripe (checkout and webhooks)
+- **Analytics:** PostHog
+- **AI (optional):** OpenAI for content moderation and assistive features
 
-### Frontend
-- **Web App**: React with TypeScript, Tailwind CSS, and Shadcn/UI
-- **Mobile App**: React Native with Expo (shared components where possible)
-- **Shared UI Library**: Common components and utilities
-
-### Backend
-- **Database**: Supabase (PostgreSQL with Row Level Security)
-- **Authentication**: Supabase Auth with social login
-- **Storage**: Supabase Storage for files and media
-- **Real-time**: Supabase Realtime for chat and live features
-
-### Third-Party Services
-- **Live Video**: Daily.co SDK for live classes
-- **VOD**: Mux for video on demand
-- **Search**: Built-in PostgreSQL full-text search
-- **Payments**: Stripe for monetization
-- **Analytics**: PostHog for user analytics
-- **Moderation**: OpenAI Moderation API
-
-## Core Features
-
-### MVP Features
-- [x] Authentication & User Profiles
-- [x] Discovery & Matching
-- [x] Chat & Projects
-- [x] Q&A & Knowledge Base
-- [x] Live Teaching
-- [x] Gamification
-- [x] Trust & Safety
-- [x] Admin Panel
-
-### Project Structure
-```
-skilllink/
-├── web/                    # React web application
-├── mobile/                 # React Native mobile app
-├── shared/                 # Shared components and utilities
-├── backend/                # Supabase configuration and functions
-├── docs/                   # Documentation
-├── scripts/                # Deployment and utility scripts
-└── README.md
-```
+---
 
 ## Quick Start
 
-1. **Prerequisites**
-   - Node.js 18+
-   - npm or yarn
-   - Supabase CLI
-   - Expo CLI (for mobile)
+### 1. Prerequisites
 
-2. **Setup**
-   ```bash
-   # Clone and install dependencies
-   npm install
-   
-   # Setup environment variables
-   cp .env.example .env.local
-   
-   # Setup Supabase
-   npm run db:setup
-   
-   # Start development servers
-   npm run dev
-   ```
+- Node.js 18+ with npm, yarn or pnpm installed.
+- Supabase account (and optionally the Supabase CLI for local development).
+- API keys for:
+  - **Daily.co** (video),
+  - **Mux** (VOD),
+  - **Stripe** (payments),
+  - **PostHog** (analytics),
+  - **OpenAI** (optional for moderation/assistant features).
 
-3. **Demo Accounts**
-   - Learner: `learner@test.com` / `Demo1234!`
-   - Mentor: `mentor@test.com` / `Demo1234!`
+### 2. Installation & Configuration
 
-## Development
+Clone the repo and install dependencies:
 
-See individual README files in each directory for specific setup instructions:
-- [Web App Setup](./web/README.md)
-- [Mobile App Setup](./mobile/README.md)
-- [Backend Setup](./backend/README.md)
+```
+bash
+git clone https://github.com/jbfx1/skilllink-mvp
+cd skilllink-mvp
+npm install            # or yarn / pnpm install
+```
 
-## Deployment
+Set up your environment variables:
 
-- **Web**: Vercel
-- **Mobile**: Expo Application Services (EAS)
-- **Backend**: Supabase Cloud
+```
+bash
+cp .env.example .env.local
+```
 
-Run `npm run deploy` for automated deployment.
+Fill out `.env.local` with your credentials:
+
+- `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+- `DAILY_API_KEY`
+- `MUX_TOKEN` and `MUX_SECRET`
+- `STRIPE_SECRET`
+- `POSTHOG_KEY`
+- (Optional) `OPENAI_API_KEY`
+
+### 3. Database Setup
+
+If running Supabase locally:
+
+```
+bash
+npx supabase start
+```
+
+Then initialize the database and seed any required data:
+
+```
+bash
+npm run db:setup
+```
+
+Alternatively, connect this project to an existing Supabase instance and run the migrations from the `/backend` directory.
+
+### 4. Development
+
+Start the development server:
+
+```
+bash
+npm run dev
+```
+
+This will launch the web client locally (Vite/Next.js) and watch for changes. Make sure your Supabase instance is running and environment variables are configured.
+
+### 5. Testing & Linting
+
+To run tests and lint the codebase:
+
+```
+bash
+npm run test      # run unit tests
+npm run lint      # lint the code with ESLint
+```
+
+### 6. Build & Deploy
+
+Build the production-ready web app:
+
+```
+bash
+npm run build
+```
+
+Deploy your application:
+
+- **Web**: Deploy the contents of the build directory to your preferred hosting platform (e.g., Vercel).
+- **Backend**: Push database schema and functions to your Supabase instance using the Supabase CLI (`supabase db push`).
+
+---
+
+## Project Structure
+
+```
+├── backend/           # Supabase functions, database migrations, seeds
+├── web/               # React web application (TypeScript, Tailwind, shadcn/ui)
+├── docs/              # Product docs (PRD, specs)
+├── .env.example       # Example environment variables file
+└── README.md
+```
+
+- `DOCUMENTATION.md`, `QUICK_START.md` and `PRODUCTION_READY.md` have been consolidated into this README.
+- Additional design and product docs live in the `docs/` folder.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork this repository and create a new branch for your feature or fix.
+2. Add tests and update documentation where relevant.
+3. Submit a pull request with a clear description of your changes.
+
+---
 
 ## License
 
-MIT License - see [LICENSE](./LICENSE) for details.
+This project is licensed under the MIT License.
